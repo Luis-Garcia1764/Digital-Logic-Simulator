@@ -19,19 +19,27 @@ int main(void) {
         int choice;
         int a;
         int b;
+        int CarryIn;
         int result = 0;
 
-        std::cout << "Select a Gate choice (1-6): " << std::endl;
+        std::cout << "Select a Gate choice (1-6) or Adders (7-8): " << std::endl;
+        std::cout << "\n";
+        std::cout << "--- Logic Gates ---" << std::endl;
         std::cout << "1. AndGate\n";
         std::cout << "2. NorGate\n";
         std::cout << "3. OrGate\n";
         std::cout << "4. NotGate\n";
         std::cout << "5. NandGate\n";
         std::cout << "6. XorGate\n";
+        std::cout << "\n";
+        std::cout << "--- Circuits ---" << std::endl;
+        std::cout << "7. Half Adder\n"; 
+        std::cout << "8. Full Adder\n";
+
 
         std::cin >> choice;
 
-        if (choice < 1 || choice > 6) {
+        if (choice < 1 || choice > 8) {
             std::cout << "Invalid choice" << std::endl;
             continue;
         }
@@ -251,6 +259,32 @@ int main(void) {
                           << "(" << a << "," << b << ") = "
                           << result
                           << std::endl;
+            }
+
+            else if (choice == 7) {
+
+                HalfAdder adder("Half Adder");
+
+                adder.evaluate(a,b);
+
+                std::cout << "Name: " << adder.getName() << std::endl;
+                std::cout << "Sum: " << adder.getSum() << std::endl;
+                std::cout << "Carry: " << adder.getCarry() << std::endl;
+
+            }
+
+            else if (choice == 8) {
+
+                std::cout << "Enter Carry-In: " << std::endl;
+                std::cin >> CarryIn;
+
+                FullAdder adder("Full Adder");
+
+                adder.evaluate(a, b, CarryIn);
+
+                std::cout << "Name: " << adder.getName() << std::endl;
+                std::cout << "Sum: " << adder.getFinalSum() << std::endl;
+                std::cout << "Carry: " << adder.getFinalCarry() << std::endl;
             }
         }
 

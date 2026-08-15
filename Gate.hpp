@@ -41,7 +41,6 @@ class NotGate : public LogicGate {
 public:
     NotGate(const std::string& name);
 
-    // You had chosen to give NOT its own function
     int evaluateNot(int a) const;
     int evaluate(int a, int b) const override;
 
@@ -58,6 +57,42 @@ class XorGate : public LogicGate {
 public:
     XorGate(const std::string& name);
     int evaluate(int a, int b) const override;
+};
+
+class HalfAdder {
+public:
+    HalfAdder(const std::string& name);
+    void evaluate(int a, int b);
+
+    std::string getName() const;
+    int getSum() const;
+    int getCarry() const;
+
+private: 
+    int sum;
+    int carry;
+    std::string name;
+
+};
+
+class FullAdder {
+public:
+    FullAdder(const std::string& name);
+    void evaluate(int a, int b, int CarryIn);
+
+    std::string getName() const;
+    int getSum() const;
+    int getCarry() const;
+
+    int getFinalSum() const;
+    int getFinalCarry() const;
+
+private:
+    int sum;
+    int carry;
+    std::string name;
+    int finalSum;
+    int finalCarry;
 };
 
 #endif

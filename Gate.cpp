@@ -60,9 +60,9 @@ void NotGate::printNotTable() const {
     std::cout << "A | Output\n";
 
     for (int a = 0; a <= 1; a++) {
-        std::cout << a << " | "
-                  << evaluateNot(a)
-                  << std::endl;
+        std::cout << a << " | " 
+            << evaluateNot(a) 
+            << std::endl;
     }
 }
 
@@ -76,4 +76,78 @@ XorGate::XorGate(const std::string& name) : LogicGate(name) {}
 
 int XorGate::evaluate(int a, int b) const {
     return a != b;
+}
+
+HalfAdder::HalfAdder(const std::string& name) {
+    this->name = name;
+}
+
+int HalfAdder::getSum() const {
+    return sum;
+}
+
+int HalfAdder::getCarry() const {
+    return carry;
+}
+
+std::string HalfAdder::getName() const {
+    return name;
+}
+
+void HalfAdder::evaluate(int a, int b) {
+    XorGate xorGate("XOR");
+    AndGate andGate("AND");
+
+    sum = xorGate.evaluate(a, b);
+    carry = andGate.evaluate(a, b);
+}
+
+FullAdder::FullAdder(const std::string& name) {
+    this->name = name;
+}
+
+std::string FullAdder::getName() const {
+    return name;
+}
+
+int FullAdder::getSum() const {
+    return sum;
+}
+
+int FullAdder::getCarry() const {
+    return carry;
+}
+
+
+
+void FullAdder::evaluate(int a, int b, int CarryIn) {
+    int sum1 = 0;
+    int carry1 = 0;
+
+    HalfAdder halfAdder1("HALFADDER1");
+    HalfAdder halfAdder2("HALFADDER2");
+
+    OrGate orGate("OR");
+
+    halfAdder1.evaluate(a, b);
+
+    sum = halfAdder1.getSum();    
+    carry = halfAdder1.getCarry();
+
+    halfAdder2.evaluate(sum, CarryIn);
+
+    sum1 = halfAdder2.getSum();
+    carry1 = halfAdder2.getCarry();
+
+    int finalCarry = orGate.evaluate(carry, carry1);
+
+    
+}
+
+int FullAdder::getFinalSum() const {
+    return finalSum;
+}
+
+int FullAdder::getFinalCarry() const {
+    return finalCarry;
 }
